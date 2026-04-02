@@ -1,0 +1,74 @@
+# Factory Method - Cum să recunoști
+- Când cerința spune: "crearea obiectelor este delegată subclaselor"
+- "Obiectele trebuie să fie create de o metodă abstractă"
+- "Există o clasă abstractă Creator care definește metoda factory"
+- "Subclasele ConcreteCreator decid ce tip de obiect Product să creeze"
+- "Tipic: produsul este interfață sau abstract class, nu instanțiat direct în Creator"
+- Sugestie: dacă cerința cere să se creeze obiecte de tip diferit în funcție de input → Factory Method
+
+=====================================================================================================
+# Factory Method - Schelet de cod
+package cts.nume.prenume.gNrGrupa.factorymethod;
+
+// Interfața Product
+public interface Product {
+    void operation();
+}
+
+// Produse concrete
+public class ConcreteProductA implements Product {
+    public void operation() {
+        System.out.println("Operatiune ProductA");
+    }
+}
+
+public class ConcreteProductB implements Product {
+    public void operation() {
+        System.out.println("Operatiune ProductB");
+    }
+}
+
+// Creator abstract
+public abstract class Creator {
+    public abstract Product factoryMethod();
+
+    // optional: metodă template care folosește produsul
+    public void doSomething() {
+        Product p = factoryMethod();
+        p.operation();
+    }
+}
+
+// Concrete Creator
+public class ConcreteCreatorA extends Creator {
+    @Override
+    public Product factoryMethod() {
+        return new ConcreteProductA();
+    }
+}
+
+public class ConcreteCreatorB extends Creator {
+    @Override
+    public Product factoryMethod() {
+        return new ConcreteProductB();
+    }
+}
+
+// Exemplu de main/test
+public class TestFactoryMethod {
+    public static void main(String[] args) {
+        Creator creator = new ConcreteCreatorA();
+        creator.doSomething(); // va folosi ProductA
+
+        creator = new ConcreteCreatorB();
+        creator.doSomething(); // va folosi ProductB
+    }
+}
+
+======================================================================================
+
+# Sfaturi examen
+- Uită-te după cuvintele cheie "delegată subclaselor" / "metodă abstractă care creează obiecte"
+- Factory Method = când Creator-ul nu știe exact ce Product se va crea
+- Nu confunda cu Builder (Builder creează pas cu pas, Factory Method creează un singur obiect)
+- Recomandat: scrie test rapid în main ca să vezi ce tip de produs se creează

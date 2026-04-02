@@ -1,0 +1,77 @@
+1️⃣ Cum recunoști Builder în cerințe (indiciile)
+Se vorbește despre construirea unui obiect complex, pas cu pas.
+Există mai multe atribute sau componente opționale care trebuie adăugate la obiect.
+Cerința sugerează:
+„să construiți un obiect în mai mulți pași”
+„să puteți alege ce componente să includă obiectul”
+„nu toate atributele trebuie setate obligatoriu”
+Deseori apare: metoda build() sau Director care controlează pașii de construcție.
+Obiectul final poate fi immutable sau greu de construit direct cu constructor.
+
+💡 Cheie: Builder se folosește atunci când nu vrei să faci constructori lungi sau combinații complexe de parametri.
+
+// Product - obiectul complex
+public class ObiectComplex {
+    // atribute
+    private String atribut1;
+    private int atribut2;
+    private boolean atribut3;
+
+    // constructor privat - doar Builder poate construi
+    private ObiectComplex(Builder builder) {
+        this.atribut1 = builder.atribut1;
+        this.atribut2 = builder.atribut2;
+        this.atribut3 = builder.atribut3;
+    }
+
+    // getter-e și metode
+    public void descriere() {
+        System.out.println("Atribut1: " + atribut1 + ", Atribut2: " + atribut2 + ", Atribut3: " + atribut3);
+    }
+
+    // Builder intern sau separat
+    public static class Builder {
+        private String atribut1;
+        private int atribut2;
+        private boolean atribut3;
+
+        public Builder setAtribut1(String atribut1) {
+            this.atribut1 = atribut1;
+            return this;
+        }
+
+        public Builder setAtribut2(int atribut2) {
+            this.atribut2 = atribut2;
+            return this;
+        }
+
+        public Builder setAtribut3(boolean atribut3) {
+            this.atribut3 = atribut3;
+            return this;
+        }
+
+        public ObiectComplex build() {
+            return new ObiectComplex(this);
+        }
+    }
+}
+
+===========main==========
+public class TestBuilder {
+    public static void main(String[] args) {
+        ObiectComplex obiect = new ObiectComplex.Builder()
+                .setAtribut1("Exemplu")
+                .setAtribut2(42)
+                .setAtribut3(true)
+                .build();
+
+        obiect.descriere();
+    }
+}
+======================================================================
+4️⃣ Puncte-cheie pentru examen
+Product = obiectul complex (ObiectComplex)
+Builder = clasa internă / separată (Builder)
+Director (opțional) = clasa care definește pașii standard de construcție
+Caracteristică principală: obiectul se construiește pas cu pas, iar utilizatorul alege ce să seteze
+Când vezi cerințe gen „poți construi obiectul cu atribute opționale sau combinări diferite” → Builder e potrivit

@@ -1,0 +1,31 @@
+Cerință Builder – Examen (Mașini)
+
+Se dorește implementarea unei aplicații pentru comanda și personalizarea unei mașini.
+
+Detalii cerință:
+
+O mașină trebuie să aibă următoarele atribute:
+Obligatorii: Model (String), Motor (String), AnFabricatie (int)
+Opționale: CutieAutomata (boolean), NavigatieGPS (boolean), ScauneIncalzite (boolean), MesajePersonalizate (List<String>)
+Implementați un Builder pentru Masina, astfel încât:
+Constructorul Builder să primească doar atributele obligatorii.
+Atributele opționale să poată fi setate prin metode de tip setter (chaining).
+Builder-ul să fie interior clasei Masina și să construiască obiectul final prin build().
+Constructorul Masina să fie privat, astfel încât să nu se poată crea obiecte direct.
+Se cere o validare simplă în build():
+AnFabricatie >= 2000
+Dacă există mesaje personalizate, numărul total de caractere nu poate depăși 50
+Se dorește posibilitatea de a adăuga mesaje personalizate (opțional) și de a refolosi Builder-ul pentru a crea mai multe obiecte diferite fără a modifica atributele deja setate ale altor mașini.
+
+💡 Exemplu de folosire:
+
+Masina suv = Masina.getBuilder("BMW X5", "Diesel", 2023)
+                   .setCutieAutomata(true)
+                   .setNavigatieGPS(true)
+                   .addMesaj("Masina de familie")
+                   .build();
+
+Masina sport = Masina.getBuilder("Porsche 911", "Benzina", 2022)
+                     .setCutieAutomata(true)
+                     .setScauneIncalzite(true)
+                     .build();
